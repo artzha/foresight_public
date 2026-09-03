@@ -1,0 +1,36 @@
+# Mirrors src/cotnav/scripts/interactive/prompt_tuning.yaml. Each leaf below is
+# emitted as a hydra CLI override when launching launch_vllm_server.py.
+
+server:
+  host: "127.0.0.1"
+  port: 8001
+
+model_overrides:
+  vlm:
+    enabled: true
+    provider_kwargs:
+      model: "REPLACE_THIS_WITH_YOUR_MODEL"
+      engine_kwargs:
+        tensor_parallel_size: 1
+        max_num_seqs: 1
+        max_model_len: 2560
+        max_num_batched_tokens: 2560
+        enforce_eager: false
+        gpu_memory_utilization: 0.5
+        disable_log_stats: true
+      sampling_params:
+        temperature: 1
+        top_p: 0.95
+        top_k: 50
+        max_tokens: 192
+  vlm_critic:
+    enabled: true
+    provider_kwargs:
+      model: "REPLACE_THIS_WITH_YOUR_MODEL"
+      sampling_params:
+        temperature: 1.0
+        top_p: 0.95
+        top_k: 50
+        max_tokens: 256
+  vlm_reward:
+    enabled: false
