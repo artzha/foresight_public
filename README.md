@@ -59,13 +59,13 @@ Download the grounding policy checkpoint into `checkpoints/`:
 
 ```bash
 mkdir -p checkpoints/waypoint_policy
-huggingface-cli download REPLACE_WITH_HF_ORG/foresight-waypoint-policy \
+hf download ut-amrl/foresight-waypoint-policy \
   gtpassthrough_xformer_kp384_48m.ckpt --local-dir checkpoints/waypoint_policy
 ```
 
-The VLM is loaded by vLLM directly from its Hugging Face ID, so it only needs to be
-named in the server config. Replace `REPLACE_WITH_HF_ORG` in
-`legged_deployment/config/vllm_server_sft.yaml` with the released org.
+The VLM is loaded by vLLM directly from its Hugging Face ID, so it needs no download
+step; `legged_deployment/config/vllm_server_sft.yaml` already names
+[ut-amrl/foresight-qwen3vl-2b-sft](https://huggingface.co/ut-amrl/foresight-qwen3vl-2b-sft).
 
 ## Run
 

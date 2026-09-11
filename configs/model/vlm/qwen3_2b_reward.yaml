@@ -1,6 +1,6 @@
 name: "qwen_reward"
 provider_kwargs:
-  model: "REPLACE_WITH_HF_ORG/foresight-qwen3vl-2b-reward"
+  model: "ut-amrl/foresight-qwen3vl-2b-reward"
   torch_dtype: "bfloat16"
   sampling_params:
     temperature: 0.0
