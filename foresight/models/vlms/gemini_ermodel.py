@@ -9,7 +9,7 @@ from typing import Any, Dict, List, Optional
 from joblib import Parallel, delayed
 from PIL import Image
 
-from cotnav.prompts.interface import (
+from foresight.prompts.interface import (
     ChatQuery,
     ContentType,
     OutputFormat,
@@ -17,7 +17,7 @@ from cotnav.prompts.interface import (
     parse_and_unify,
     schema_for,
 )
-from cotnav.utils.log import logging
+from foresight.utils.log import logging
 
 
 @dataclass
@@ -109,7 +109,7 @@ class GeminiERModel:
 
     @staticmethod
     def _norm_role(role: Any) -> str:
-        from cotnav.prompts.interface import Role
+        from foresight.prompts.interface import Role
         value = role.value if isinstance(role, Role) else role
         if value in ("assistant", "model"):
             return "model"

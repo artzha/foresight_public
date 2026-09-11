@@ -1,0 +1,57 @@
+/**:
+  ros__parameters:
+    # subscribers
+    image_topic: "/camera/rgb/image_raw/compressed"
+    pose_topic: "/odometry"
+    # publishers
+    image_plan_topic: "/legged_deployment/image_plan/compressed"
+    obs_mosaic_topic: "/legged_deployment/observation_mosaic/compressed"
+    foresight_status_topic: "/legged_deployment/foresight_status"
+    service_name: "/legged_deployment/foresight_planner"
+    obs_frame_id: "base_link"
+    path_frame_id: "odom"
+
+    image_resolution: [224, 392] # [height, width]
+
+    # Pose-spaced observation window (last entry is always the most recent obs).
+    obs_window_size: 4
+    obs_window_spacing_m: 1.06
+
+    # No-refinement variant: a single motion pass per request. With
+    # max_reflections=0 and no critic prompts, the planner runs motion once,
+    # publishes with verdict=1, and returns.
+    max_reflections: 0
+
+    prompts:
+      system: "src/foresight_public/foresight/prompts/datagen/plan_v4/system_prompt.txt"
+      motion: "src/foresight_public/foresight/prompts/datagen/plan_v4/motion_prompt.txt"
+      critic: ""
+      motion_refine: ""
+      critic_refine: ""
+
+    conversation_templates: ["system", "motion", "assistant"]
+
+    llm_cfg.backend: "vllm_remote"
+    llm_cfg.max_new_tokens: 196
+    llm_cfg.host: "127.0.0.1"
+    llm_cfg.port: 8001
+    llm_cfg.timeout_s: 180.0
+    llm_cfg.auth_token: ""
+    llm_cfg.engine_path: ""
+    llm_cfg.tokenizer_name: ""
+    llm_cfg.runtime_callable: ""
+
+    grounding_policy.enabled: true
+    grounding_policy.config_dir: "src/foresight_public/configs"
+    grounding_policy.config_name: "model/waypoint/gtpassthrough_xformer"
+    # 4.8m planning policy
+    grounding_policy.checkpoint_path: "checkpoints/waypoint_policy/gtpassthrough_xformer_kp384_48m.ckpt"
+
+    grounding_policy.device: "cuda"
+    grounding_policy.strict_load: false
+
+    # Override action_head transformer kwargs to match the trained checkpoint.
+    grounding_policy.action_head.num_kp: 384
+    grounding_policy.action_head.dim_feedforward: 384
+    grounding_policy.action_head.nhead: 8
+    grounding_policy.action_head.num_layers: 8

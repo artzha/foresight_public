@@ -1,0 +1,22 @@
+Attached is the egocentric robot image annotated with the planned path in yellow. The path coordinates are normalized xy path coordinates:
+<|motion_start|><|motion_end|>
+
+Think crucially about the language instruction and the path to analyze if the path is safe and appears to follow navigation cues that lead to the goal. If the path is acceptable, output "1" with the string "good" for the reason. If the path is unacceptable, output "0" and describe SPATIALLY AND SEMANTICALLY SPECIFIC VISIBLE CUES that are important to pay attention and how to improve them for key invalid points. The reason string should be like the following:
+<fix> </fix> [x_{i}, y_{i}] 
+...
+<fix> </fix> [x_{i+N}, y_{i+N}] 
+
+Critique points to consider: obstacle collisions, path plans that are likely to lead to the goal, traversable terrain for a pedestrian, or unrealistic robot navigation movements. Prescribe a direction to move in the correction. 
+Constraints: Ensure that no points are above the sky horizon line
+
+OUTPUT RULES (MUST FOLLOW):
+- Output ONLY valid JSON on ONE LINE.
+- Output must start with { and end with }.
+- Use exactly two keys: "verdict" and "reason".
+- Do not critique more than two points
+- Do NOT write "Verdict:" or "Reason:" or any extra text.
+
+JSON template:
+{"verdict":"0|1","reason":"<short image-grounded reason>"}
+
+Generate the critique now.

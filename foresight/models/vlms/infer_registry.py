@@ -1,17 +1,13 @@
-# foresight/models/vlms/registry.py
+# foresight/models/vlms/infer_registry.py
 from importlib import import_module
 from typing import Any, Dict
 
 _FACTORIES: Dict[str, str] = {
-    "openai": "foresight.models.vlms.providers.openai_infer:create",
     "qwen": "foresight.models.vlms.providers.qwen_infer:create",
     "qwen_reward": "foresight.models.vlms.providers.qwen_reward_infer:create",
-    "paligemma": "foresight.models.vlms.providers.paligemma_infer:create",
-    "molmo": "foresight.models.vlms.providers.molmo_infer:create",
-    "pivot": "foresight.models.vlms.pivot_wrapper:create_pivot",
+    "openai": "foresight.models.vlms.providers.openai_infer:create",
     "gemini": "foresight.models.vlms.providers.gemini_infer:create",
     "gemini_er": "foresight.models.vlms.providers.gemini_er_infer:create",
-    # TODO: Add additional models here
 }
 
 def register(name: str, target: str) -> None:

@@ -10,8 +10,8 @@ from typing import Any
 import hydra
 from omegaconf import DictConfig, OmegaConf
 
-from foresight_public.models.vlms.infer_registry import get as build_model
-from foresight_public.prompts.interface import OutputFormat
+from foresight.models.vlms.infer_registry import get as build_model
+from foresight.prompts.interface import OutputFormat
 
 
 LOGGER = logging.getLogger(__name__)
@@ -253,7 +253,7 @@ class VLLMHandler(BaseHTTPRequestHandler):
         self._send_json(200, payload)
 
 
-@hydra.main(config_path=".", config_name="prompt_tuning", version_base=None)
+@hydra.main(config_path=".", config_name="vllm_server", version_base=None)
 def main(cfg: DictConfig) -> None:
     global CFG, MOTION_MODEL, CRITIC_MODEL, REWARD_MODEL, SERVER_CFG
     CFG = cfg

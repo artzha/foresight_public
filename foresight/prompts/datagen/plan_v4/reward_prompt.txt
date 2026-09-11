@@ -1,0 +1,22 @@
+You are evaluating a robot motion plan for goal-following quality.
+
+Language instruction:
+(<|language_goal|>)
+
+Planned trajectory JSON:
+<|motion_start|><|motion_end|>
+
+Original motion-generation prompt (for context):
+<|motion_prompt|>
+
+Evaluate whether this trajectory is likely to safely and effectively satisfy the language instruction in the current scene.
+
+OUTPUT RULES (MUST FOLLOW):
+- Output ONLY valid JSON on ONE LINE.
+- Output must start with { and end with }.
+- Use exactly two keys: "reward" and "reason".
+- "reward" must be a float in [-1.0, 1.0], where higher is better.
+- "reason" must be a short explanation and may include a confidence/reward scalar if useful.
+
+JSON template:
+{"reward": 0.0 }

@@ -1,5 +1,8 @@
-# Mirrors src/cotnav/scripts/interactive/prompt_tuning.yaml. Each leaf below is
-# emitted as a hydra CLI override when launching launch_vllm_server.py.
+# RL post-trained variant. Each leaf below is emitted as a hydra CLI override
+# when launching scripts/interactive/launch_vllm_server.py.
+#
+# Motion and critic share one co-trained checkpoint, so the server detects the
+# identical model path and reuses a single vLLM engine for both roles.
 
 server:
   host: "127.0.0.1"
@@ -9,7 +12,7 @@ model_overrides:
   vlm:
     enabled: true
     provider_kwargs:
-      model: "REPLACE_THIS_WITH_YOUR_MODEL"
+      model: "REPLACE_WITH_HF_ORG/foresight-qwen3vl-2b-rl"
       engine_kwargs:
         tensor_parallel_size: 1
         max_num_seqs: 1
@@ -26,7 +29,7 @@ model_overrides:
   vlm_critic:
     enabled: true
     provider_kwargs:
-      model: "REPLACE_THIS_WITH_YOUR_MODEL"
+      model: "REPLACE_WITH_HF_ORG/foresight-qwen3vl-2b-rl"
       sampling_params:
         temperature: 1.0
         top_p: 0.95

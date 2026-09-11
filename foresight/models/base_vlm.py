@@ -1,4 +1,4 @@
-# cotnav/models/base_vlm.py
+# foresight/models/base_vlm.py
 from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import Callable, List, Optional, Dict, Any
@@ -10,7 +10,7 @@ from transformers import GenerationMixin, PretrainedConfig
 
 class BaseVLM(nn.Module, GenerationMixin, ABC):
     """
-    Base class for VLMs used in cotnav.
+    Base class for VLMs used in foresight.
 
     Subclasses must:
       - set `self.backbone` to the underlying HF model

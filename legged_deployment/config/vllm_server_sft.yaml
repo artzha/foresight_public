@@ -1,0 +1,39 @@
+# Supervised fine-tuned (SFT) variant. Each leaf below is emitted as a hydra CLI
+# override when launching scripts/interactive/launch_vllm_server.py.
+#
+# Motion and critic share one co-trained checkpoint, so the server detects the
+# identical model path and reuses a single vLLM engine for both roles.
+
+server:
+  host: "127.0.0.1"
+  port: 8001
+
+model_overrides:
+  vlm:
+    enabled: true
+    provider_kwargs:
+      model: "REPLACE_WITH_HF_ORG/foresight-qwen3vl-2b-sft"
+      engine_kwargs:
+        tensor_parallel_size: 1
+        max_num_seqs: 1
+        max_model_len: 2560
+        max_num_batched_tokens: 2560
+        enforce_eager: false
+        gpu_memory_utilization: 0.5
+        disable_log_stats: true
+      sampling_params:
+        temperature: 1
+        top_p: 0.95
+        top_k: 50
+        max_tokens: 192
+  vlm_critic:
+    enabled: true
+    provider_kwargs:
+      model: "REPLACE_WITH_HF_ORG/foresight-qwen3vl-2b-sft"
+      sampling_params:
+        temperature: 1.0
+        top_p: 0.95
+        top_k: 50
+        max_tokens: 256
+  vlm_reward:
+    enabled: false

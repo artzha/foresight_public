@@ -1,8 +1,8 @@
 *.egg-info/**
 *.pyc
+__pycache__/
 data
 **/data/**
-**/data_old/**
 *.mp4
 *.png
 *.jpg
@@ -13,23 +13,15 @@ data
 *.bkp
 *.jsonl
 *.txt
-**/.claude/**
+# Prompt templates are source, not data.
+!foresight/prompts/**/*.txt
+# Documentation figures are source, not data.
+!docs/media/**
 **/deprecated/**
 **/old/**
-**/output/**
-**/trainer_output/**
 **/outputs/**
 **/wandb/**
 **/checkpoints/**
-**/checkpoints_rlidar/**
 checkpoints
-checkpoints_rlidar
-**/annotator/**
-**/annotator/ranker_labels/**
-*.gradio
-**/model_ckpts/**
 **/eval_outputs/**
-**/ranker_cache/**
-**/ranker_cache_fixedstart/**
-**/ranker_cache_absoluterank/**
 .nfs*

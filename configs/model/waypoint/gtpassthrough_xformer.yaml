@@ -1,0 +1,56 @@
+defaults:
+  - _self_
+
+name: "spatial_grounding_policy"
+model_name: "SpatialGroundingPolicy"
+num_actions: &num_actions 10
+action_dim: &action_dim 3
+
+obs_encoder:
+  name: "vits"
+  dino_layer_idx:
+    vits: [2, 5, 8, 11]
+  pool_dim: 64
+  out_dim:
+    vits: 384
+  # Unused at inference: the grounding policy checkpoint carries obs_encoder.* weights.
+  weights_path: checkpoints/external/depth_anything_v2_vits.pth
+
+path_encoder:
+  name: "efficientnet-b0"
+  in_channels: 1
+  out_dim: 64
+
+spatial_encoder:
+  name: "ConvNetSpatial"
+
+  encoder:
+    name: "efficientnet-b0"
+
+    mixer_hidden_dim: 128
+    mixer_depth: 4
+    in_keys: [ "obs_feats", "path_feats" ]
+    feat_dims: [ 384, 64 ] # TODO: this should match obs and path encoder output latents
+    input_res: [16, 28] # [H/14, W/14] of the input image
+    out_key: &spatial_enc_out_key "target_latent"
+    out_dim: 512
+
+  spatial_softmax:
+    num_kp: &num_kps 512
+    temperature: 0.1
+    learnable_temperature: True
+    output_variance: False
+
+action_head:
+  name: "TransformerActionHead"
+  kwargs:
+    num_kp: *num_kps          # must match spatial_softmax.num_kp
+    kp_dim: 2                 # spatial softmax outputs (x, y) per keypoint
+    d_model: 128
+    nhead: 4
+    num_layers: 4
+    num_actions: *num_actions
+    action_dim: *action_dim
+    dim_feedforward: 512
+    dropout: 0.1
+    predict_deltas: false     # set true to predict per-step deltas (cumsum readout)

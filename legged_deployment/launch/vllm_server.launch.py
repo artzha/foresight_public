@@ -24,19 +24,25 @@ def _launch_vllm_server(context):
 
 
 def generate_launch_description() -> LaunchDescription:
+    """Launch the vLLM model server that backs the waypoint planner.
+
+    `vllm_config` selects the model variant:
+      - vllm_server_sft.yaml supervised fine-tuned weights (default)
+      - vllm_server_rl.yaml  RL post-trained weights
+    """
     share_dir = get_package_share_directory("legged_deployment")
-    default_vllm_repo = os.path.expanduser("~/argo_ws/src/foresight_public")
+    default_vllm_repo = os.path.expanduser("~/foresight_ws/src/foresight_public")
     default_vllm_script = os.path.join(
         default_vllm_repo, "scripts", "interactive", "launch_vllm_server.py"
     )
-    vllm_config_default = os.path.join(share_dir, "config", "vllm_server.yaml")
+    vllm_config_default = os.path.join(share_dir, "config", "vllm_server_sft.yaml")
 
     return LaunchDescription(
         [
             DeclareLaunchArgument(
                 "vllm_repo_dir",
                 default_value=default_vllm_repo,
-                description="CotNav repository root used as working directory for vLLM server startup.",
+                description="foresight_public repository root, used as the working directory for vLLM server startup.",
             ),
             DeclareLaunchArgument(
                 "vllm_server_script",
@@ -46,7 +52,11 @@ def generate_launch_description() -> LaunchDescription:
             DeclareLaunchArgument(
                 "vllm_config",
                 default_value=vllm_config_default,
-                description="Path to vLLM server YAML config file.",
+                description=(
+                    "Path to vLLM server YAML config file. Defaults to "
+                    "vllm_server_sft.yaml; pass vllm_server_rl.yaml for the RL "
+                    "post-trained variant."
+                ),
             ),
             OpaqueFunction(function=_launch_vllm_server),
         ]

@@ -1,0 +1,19 @@
+name: "qwen"
+provider_kwargs:
+  model: "Qwen/Qwen3-VL-2B-Instruct"
+  torch_dtype: "bfloat16"
+  sampling_params:
+    temperature: 1.0
+    max_new_tokens: 192
+    top_p: 0.95
+  engine_kwargs:
+    tensor_parallel_size: 2
+    gpu_memory_utilization: 0.9
+    enable_sleep_mode: false
+    max_model_len: 4096
+    max_num_seqs: 128
+    max_num_batched_tokens: 4096
+    enforce_eager: false
+    disable_log_stats: true
+    attention_backend: "FLASH_ATTN"
+  max_pixel_dim: 392

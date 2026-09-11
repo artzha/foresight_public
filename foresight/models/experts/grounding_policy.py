@@ -7,10 +7,10 @@ from efficientnet_pytorch import EfficientNet
 from depth_anything_v2.dinov2 import DINOv2
 
 
-from cotnav.models.adapters import replace_bn_with_gn, LambdaLayer
-from cotnav.models.blocks.convnet_spatial import ConvNetSpatial
-from cotnav.models.blocks.dense_network import DenseNetwork
-from cotnav.models.blocks.transformer_head import TransformerActionHead
+from foresight.models.adapters import replace_bn_with_gn, LambdaLayer
+from foresight.models.blocks.convnet_spatial import ConvNetSpatial
+from foresight.models.blocks.dense_network import DenseNetwork
+from foresight.models.blocks.transformer_head import TransformerActionHead
 
 class SpatialGroundingPolicy(nn.Module):
     def __init__(self, cfg: Dict):

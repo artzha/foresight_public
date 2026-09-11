@@ -1,0 +1,9 @@
+Reflect on the previous planned path and the motion plan critique. If the verdict is 1, output the same path. If the verdict is 0, consider the issues mentioned in the critique to sample an improved motion plan that fixes valid issues while following the language instruction:
+(<|language_goal|>)
+while satisfying the earlier constraints:
+- The trajectory must be in normalized pixel coordinates. Each point is [x,y] with 0<=x<=1, 0<=y<=1.
+- Use == 10 points. The first point MUST start near the bottom of the image.
+- Points must on the walkable ground, but can be behind obstacles if the obstacle is passable (like a door or a wall).
+
+OUTPUT THE REFINED TRAJECTORY AS JSON IN THIS FORMAT:
+{"trajectory":[[x0, y0], ... [xn, yn]]}

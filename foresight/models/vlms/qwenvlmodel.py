@@ -21,11 +21,11 @@ from qwen_vl_utils import process_vision_info
 
 # from vllm import LLM, EngineArgs, SamplingParams
 
-from cotnav.prompts.interface import (
+from foresight.prompts.interface import (
     ContentType, Role, ChatQuery, 
     OutputFormat, parse_and_unify, UnifiedEnvelope
 )
-from cotnav.utils.log import logging
+from foresight.utils.log import logging
 from dataclasses import dataclass, field
 from typing import Optional, Dict, Any
 
@@ -109,7 +109,7 @@ class QwenConfig:
 class QwenVLModel:
     """
     Wrapper for Qwen VL model using local vllm implementation.
-    Matches OpenAI interface for compatibility with pivot_wrapper.
+    Matches the OpenAI provider interface so the two are interchangeable.
     """
 
     def __init__(
@@ -369,7 +369,7 @@ class QwenVLModel:
         **kwargs: Any
     ) -> List[UnifiedEnvelope | None]:
         """
-        Generate responses in a single batch using Qwen VL model. Added for compatibility with pivot_wrapper batch_vqa
+        Generate responses in a single batch using Qwen VL model.
         """
         return self.generate_responses(
             instructions,

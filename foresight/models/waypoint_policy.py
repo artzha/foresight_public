@@ -7,7 +7,7 @@ import torch.nn as nn
 from hydra import compose, initialize_config_dir
 from omegaconf import DictConfig, OmegaConf
 
-from cotnav.builders import build_model
+from foresight.builders import build_model
 
 
 class PassthroughMotionPlanner(nn.Module):
@@ -118,7 +118,7 @@ class WaypointPolicy(nn.Module):
         return cfg
     
 if __name__ == "__main__":
-    config_dir = "/robodata/arthurz/Research/cotnav/configs"
+    config_dir = "/robodata/arthurz/Research/foresight/configs"
     with initialize_config_dir(config_dir=config_dir, version_base=None):
         # cfg = compose(config_name="model/waypoint/pivot_simple")
         cfg = compose(config_name="model/waypoint/gtpassthrough_simple")

@@ -6,8 +6,8 @@ import torch
 from PIL import Image
 from transformers import AutoModelForTokenClassification, AutoProcessor
 
-from cotnav.prompts.interface import ChatQuery, ContentType, OutputFormat, UnifiedEnvelope, parse_and_unify
-from cotnav.utils.log import logging
+from foresight.prompts.interface import ChatQuery, ContentType, OutputFormat, UnifiedEnvelope, parse_and_unify
+from foresight.utils.log import logging
 
 
 def _resolve_torch_dtype(dtype_name: str):
@@ -46,11 +46,9 @@ class QwenVLRewardModel:
         self.timeout = float(timeout)
         self._model_name = model_name
 
-        # Trigger AutoModelForTokenClassification registration side-effect.
-        try:
-            import verl.models.transformers.qwen3_vl_reward  # noqa: F401
-        except Exception:
-            from external.verl.verl.models.transformers import qwen3_vl_reward  # noqa: F401
+        # Trigger AutoModelForTokenClassification registration side-effect. verl is an
+        # optional dependency; only the reward model role needs it.
+        import verl.models.transformers.qwen3_vl_reward  # noqa: F401
 
         processor_kwargs = dict(kwargs.pop("processor_kwargs", {}) or {})
         model_kwargs = dict(kwargs.pop("model_kwargs", {}) or {})

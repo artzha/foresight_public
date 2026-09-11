@@ -1,4 +1,4 @@
-# cotnav/models/motion_vlm.py
+# foresight/models/motion_vlm.py
 from __future__ import annotations
 
 from pathlib import Path
@@ -13,15 +13,15 @@ from transformers import (
     Qwen3VLForConditionalGeneration,
 )
 
-from cotnav.core.printer import rank0_print
-from cotnav.core.constants import IGNORE_INDEX
-from cotnav.models.base_vlm import BaseVLM
-from cotnav.models.monkey_patch_forward import replace_qwen3_with_mixed_modality_forward
+from foresight.core.printer import rank0_print
+from foresight.core.constants import IGNORE_INDEX
+from foresight.models.base_vlm import BaseVLM
+from foresight.models.monkey_patch_forward import replace_qwen3_with_mixed_modality_forward
 
-import cotnav.utils.train_utils as tu
-from cotnav.utils.log import LogManager
-from cotnav.utils.metric import MetricManager
-from cotnav.prompts.interface import parse_and_unify, OutputFormat
+import foresight.utils.train_utils as tu
+from foresight.utils.log import LogManager
+from foresight.utils.metric import MetricManager
+from foresight.prompts.interface import parse_and_unify, OutputFormat
 
 # ---- helper functions adapted from train_sft.py ----
 

@@ -18,11 +18,11 @@ from openai import OpenAI
 from openai import APIError, RateLimitError, APITimeoutError
 import tempfile, numpy as np, os
 
-from cotnav.prompts.interface import ( 
+from foresight.prompts.interface import ( 
     ContentType, Role, ChatQuery, 
     OutputFormat, parse_and_unify, schema_for, UnifiedEnvelope
 )
-from cotnav.utils.log import logging
+from foresight.utils.log import logging
 from pydantic import BaseModel
 
 class ResponsesMessage:

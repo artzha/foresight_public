@@ -1,0 +1,21 @@
+name: "qwen_reward"
+provider_kwargs:
+  model: "REPLACE_WITH_HF_ORG/foresight-qwen3vl-2b-reward"
+  torch_dtype: "bfloat16"
+  sampling_params:
+    temperature: 0.0
+    max_new_tokens: 256
+    top_p: 1.0
+  engine_kwargs:
+    tensor_parallel_size: 
+    gpu_memory_utilization: 0.3
+    enable_sleep_mode: false
+    max_model_len: 4096
+    max_num_seqs: 128
+    attention_backend: "FLASH_ATTN"
+  apply_chat_template_kwargs:
+    video_metadata:
+      fps: 0.5
+      frames_indices: [0, 1, 2, 3]
+      total_num_frames: 4
+  max_pixel_dim: 392

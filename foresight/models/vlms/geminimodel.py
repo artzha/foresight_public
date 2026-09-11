@@ -506,7 +506,7 @@ class GeminiModel:
                     uploaded_file = self.client.files.upload(
                         file=str(batch_requests_file),
                         config=types.UploadFileConfig(
-                            display_name=f"cotnav-requests-{upload_time}",
+                            display_name=f"foresight-requests-{upload_time}",
                             mime_type="application/jsonl",
                         )
                     )
@@ -519,7 +519,7 @@ class GeminiModel:
                         model=model_name,
                         src=uploaded_file.name,
                         config=types.CreateBatchJobConfig(
-                            display_name=f"cotnav-batch-{upload_time}",
+                            display_name=f"foresight-batch-{upload_time}",
                         )
                     )
                     break

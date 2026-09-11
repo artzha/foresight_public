@@ -1,0 +1,40 @@
+# @package _global_
+#
+# Hydra root config for scripts/interactive/launch_vllm_server.py.
+#
+# The server reads exactly three nodes: `model` (the composed per-role VLM
+# profiles), `model_overrides` (deep-merged onto `model`), and `server`.
+# `legged_deployment/config/vllm_server_*.yaml` is flattened into
+# `model_overrides.*` / `server.*` CLI overrides by
+# `legged_deployment.vllm_config_loader`, so the defaults below only need to
+# supply the base profile for each role.
+
+defaults:
+  - /model/vlm@model.vlm: qwen3_2b_motion
+  - /model/vlm@model.vlm_critic: qwen3_2b_critic
+  - /model/vlm@model.vlm_reward: qwen3_2b_reward
+  - _self_
+
+model:
+  vlm:
+    enabled: true
+  vlm_critic:
+    enabled: true
+  vlm_reward:
+    enabled: false
+
+model_overrides:
+  vlm: {}
+  vlm_critic: {}
+  vlm_reward: {}
+
+server:
+  host: "127.0.0.1"
+  port: 8001
+  auth_token: ""
+
+hydra:
+  searchpath:
+    - file://configs
+  run:
+    dir: ./outputs/vllm_server/${now:%Y-%m-%d}/${now:%H-%M-%S}

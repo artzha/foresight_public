@@ -1,0 +1,12 @@
+Attached are egocentric navigation images from a robot navigating to a goal. The images are in chronological order, where the last image is the current observation. Your task is to sample a unique motion trajectory from the distribution of trajectories that follows the language instruction:
+(<|language_goal|>)
+while satisfying the following constraints.
+
+Constraints:
+- The trajectory must be in normalized pixel coordinates. Each point is [x,y] with 0<=x<=1, 0<=y<=1.
+- Use == 10 points. The first point MUST start near the bottom of the image.
+- Points must on the walkable ground, but can be behind obstacles if the obstacle is passable (like a door or a wall).
+
+Output ONLY JSON with exactly one key "trajectory". No extra text. 
+Format:
+{"trajectory":[[x0, y0], ... [xn, yn]]}

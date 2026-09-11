@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=65", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "foresight"
+version = "0.1.0"
+description = "Foresight: self-critiquing vision-language navigation for legged robots"
+authors = [{name = "Arthur K Zhang", email = "arthurz@cs.utexas.edu"}]
+license = {text = "Apache-2.0"}
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "black", "ruff", "pre-commit"]
+
+# ↓  Because we're *not* using a src/ layout, we can let setuptools
+#    find packages automatically (this is actually the default), or
+#    keep it explicit:
+[tool.setuptools.packages.find]
+where   = ["."]
+include = ["foresight*", "scripts*", "legged_deployment*"]
+exclude = []
